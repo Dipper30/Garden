@@ -2,6 +2,7 @@
   <div class="about">
     <h1 class="desc">This is an about page</h1>
     <n-button>nButton</n-button>
+    <div>{{ $t("message.hello") }}</div>
   </div>
 </template>
 <script>
