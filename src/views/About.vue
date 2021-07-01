@@ -2,7 +2,7 @@
   <div class="about">
     <h1 class="desc">This is an about page</h1>
     <n-button @click="switchLanguage">nButton</n-button>
-    <div>{{ $t("login.say") }}</div>
+    <div>{{ $t("login.say",{name: "dipper"}) }}</div>
   </div>
 </template>
 <script>

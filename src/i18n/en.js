@@ -1,5 +1,5 @@
 export default {
   login: {
-    say: 'hello'
+    say: 'hello {name}'
   }
 }
