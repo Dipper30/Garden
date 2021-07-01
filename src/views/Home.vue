@@ -1,18 +1,30 @@
 <template>
   <div class="home">
-    <img alt="Vue logo" src="../assets/logo.png">
-    <HelloWorld msg="Welcome to Your Vue.js App"/>
+    this is home
+    <button @click="show"></button>
   </div>
 </template>
 
 <script>
 // @ is an alias to /src
-import HelloWorld from '@/components/HelloWorld.vue'
+// import HelloWorld from '@/components/HelloWorld.vue'
+import { useNotification } from 'naive-ui'
 
 export default {
   name: 'Home',
   components: {
-    HelloWorld
+
+  },
+  setup () {
+    const notification = useNotification()
+    const show = () => {
+      notification.warning({
+        content: 'This is Warning!!'
+      })
+    }
+    return {
+      show
+    }
   }
 }
 </script>
