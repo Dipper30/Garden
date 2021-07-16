@@ -1,6 +1,6 @@
 <template>
   <div id="main">
-    <side-nav class="side" />
+    <side-nav id="side" />
     <router-view></router-view>
   </div>
 </template>
@@ -21,7 +21,7 @@ export default {
   flex-direction: row;
   height: 100%;
 }
-.side {
+#side {
   height: 100%;
   background-color: #fb7299;
 }

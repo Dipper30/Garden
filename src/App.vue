@@ -34,6 +34,11 @@ body {
   color: #333;
 }
 
+.n-notification-container {
+  right: 0;
+  left: unset;
+}
+
 #nav {
   padding: 30px;
 

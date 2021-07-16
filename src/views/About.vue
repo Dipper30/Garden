@@ -2,6 +2,7 @@
   <div class="about">
     <h1 class="desc">This is an about page</h1>
     <n-button @click="switchLanguage">nButton</n-button>
+    <div>{{$t('new')}}</div>
     <div>{{ $t("login.say",{name: "dipper"}) }}</div>
   </div>
 </template>
@@ -23,7 +24,8 @@ export default {
     }
 
     return {
-      switchLanguage
+      switchLanguage,
+      locale: 'zh_cn'
     }
   }
 }
