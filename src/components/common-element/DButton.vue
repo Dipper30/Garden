@@ -1,15 +1,14 @@
 <template>
-  <n-button class="normal">
+  <div :class="buttonClass">
     <slot></slot>
-  </n-button>
+  </div>
 </template>
 <script>
 import { computed } from 'vue'
-import { NButton } from 'naive-ui'
 
 export default {
   components: {
-    NButton
+    // NButton
   },
   props: {
     type: {
