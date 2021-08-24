@@ -125,6 +125,7 @@ import { http } from '../../request/http'
 import { register, login } from '../../request/api'
 import { useRouter } from 'vue-router'
 import { Language } from '@vicons/ionicons5'
+import { useStore } from 'vuex'
 
 // import { CashOutline as CashIcon } from '@vicons/ionicons5'
 
@@ -144,6 +145,8 @@ export default {
     const registerLoading = ref(false)
     const registerInput = ref(null)
     const loginInput = ref(null)
+    const $store = useStore()
+
     const loginRules = {
       username: [
         {
@@ -391,6 +394,7 @@ export default {
         value: 90
       }
     ])
+    // const setUser = computed((user) => store.mutations.setUser(user))
     // methods
     const onLogIn = async () => {
       loginLoading.value = true
@@ -401,6 +405,11 @@ export default {
           content: loginFormText.value.success || 'success',
           duration: 3000
         })
+        const { data: user, token } = res
+        $store._mutations.setUser[0](user)
+        $store._mutations.setToken[0](token)
+        console.log(user, $store.state.token)
+        localStorage.setItem('token', token)
         $route.push('/home')
       } else {
         notification.warning({
