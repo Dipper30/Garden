@@ -1,24 +1,23 @@
 <template>
   <div id="main">
-    <side-nav id="side" />
     <router-view></router-view>
   </div>
 </template>
 <script>
-import SideNav from './SideNav'
+// import SideNav from './SideNav'
 
 export default {
   name: 'Main',
   components: {
-    SideNav
+    // SideNav
   }
 }
 </script>
 <style lang="scss">
 #main {
   width: 100vw;
-  display: flex;
-  flex-direction: row;
+  /* display: flex; */
+  /* flex-direction: row; */
   height: 100%;
 }
 #side {

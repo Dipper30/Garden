@@ -21,6 +21,11 @@ export default {
 </script>
 
 <style lang="scss">
+
+#header, #side, #footer {
+  display: none
+}
+
 body {
   padding: 0;
   margin: 0;
@@ -32,6 +37,7 @@ body {
   -moz-osx-font-smoothing: grayscale;
   text-align: center;
   color: #333;
+  /* font-family: Arial, Helvetica, sans-serif; */
 }
 
 .n-notification-container {

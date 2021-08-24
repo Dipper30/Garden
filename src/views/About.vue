@@ -5,6 +5,7 @@
     <n-input></n-input>
     <div>{{$t('new')}}</div>
     <div>{{ $t("login.say",{name: "dipper"}) }}</div>
+    <n-input type="password" :show-password-toggle="true" />
   </div>
 </template>
 <script>

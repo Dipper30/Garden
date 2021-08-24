@@ -7,7 +7,7 @@
       <div class="title" :class="{'normal-title': locale !== 'zh_cn'}" v-else>
         {{ $t("login.join_us") }}
       </div>
-      <div class="slider">
+      <div class="slider" @keydown.enter="enterClick">
         <div class="container" :class="{'register-page': swiped}">
           <!-- login form -->
           <div class="form login-form">
@@ -20,11 +20,11 @@
               show-label=false
             >
               <n-form-item :label="loginFormText.label_username" path="username">
-                <n-input v-model:value="loginFormValue.username" :placeholder="loginFormText.plholder_username" />
+                <n-input autofocus ref="loginInput" v-model:value="loginFormValue.username" :placeholder="loginFormText.plholder_username" />
               </n-form-item>
               <div class="divide" />
               <n-form-item :label="loginFormText.label_password" path="password">
-                <n-input :placeholder="loginFormText.plholder_password" v-model:value="loginFormValue.password" />
+                <n-input type="password" show-password-toggle :placeholder="loginFormText.plholder_password" v-model:value="loginFormValue.password" />
               </n-form-item>
               <div class="divide" />
             </n-form>
@@ -34,9 +34,20 @@
                 <div class="text-btn register" @click="goToRegister">{{ $t("login.go_register") }}</div>
               </div>
               <div class="right">
-                <n-button color="#666" class="confirm-btn" @click="onLogIn">
+                <n-button :loading="loginLoading" color="#666" class="confirm-btn" @click="onLogIn">
                   {{ $t("login.login") }}
                 </n-button>
+              </div>
+            </div>
+            <div class="more">
+              <div class="language" @click="switchLanguage">
+                 <n-icon size="20" class="">
+                  <language />
+                </n-icon>
+                {{ $t("login.language") }}
+              </div>
+              <div class="contact">
+                {{ $t("login.contact") }} dddDipper30@gmail.com
               </div>
             </div>
           </div>
@@ -52,15 +63,19 @@
               show-label=false
             >
               <n-form-item :label="registerFormText.label_username" path="username">
-                <n-input v-model:value="registerFormValue.username" :placeholder="`请输入${registerFormText.label_username}`" />
+                <n-input ref="registerInput" v-model:value="registerFormValue.username" :placeholder="`${registerFormText.plholder_username}`" />
               </n-form-item>
               <div class="divide" />
               <n-form-item :label="registerFormText.label_password" path="password">
-                <n-input :placeholder="`请输入${registerFormText.label_password}`" v-model:value="registerFormValue.password" />
+                <n-input type="password" show-password-toggle :placeholder="`${registerFormText.plholder_password}`" v-model:value="registerFormValue.password" :maxlength="20" />
+              </n-form-item>
+              <!-- check PASSWORD -->
+              <n-form-item :label="registerFormText.label_check_password" path="check_password">
+                <n-input type="password" :placeholder="`${registerFormText.plholder_check_password}`" v-model:value="checkPassword" :maxlength="20" />
               </n-form-item>
               <div class="divide" />
               <n-form-item :label="registerFormText.label_name">
-                <n-input :placeholder="`请输入${registerFormText.label_name}`" v-model:value="registerFormValue.name" />
+                <n-input :placeholder="`${registerFormText.plholder_name}`" v-model:value="registerFormValue.name" />
               </n-form-item>
               <div class="divide" />
               <!-- school -->
@@ -86,7 +101,7 @@
                 <div class="text-btn return" @click="goToRegister"><pre html="<<<"></pre>{{ $t("login.return") }}</div>
               </div>
               <div class="right">
-                <n-button color="#666" class="confirm-btn" @click="onRegister">
+                <n-button :loading="registerLoading" color="#666" class="confirm-btn" @click="onRegister">
                   {{ $t("login.register") }}
                 </n-button>
               </div>
@@ -97,29 +112,38 @@
       </div>
     </div>
     <div class="content">
-      login content
+
     </div>
   </div>
 </template>
 <script>
 // import DButton from '../../components/common-element/DButton.vue'
-import { NButton, NForm, NFormItem, NInput, NSelect, useNotification } from 'naive-ui'
+import { NButton, NForm, NFormItem, NInput, NSelect, useNotification, NIcon } from 'naive-ui'
 import i18n from '../../i18n'
 import { ref, computed } from 'vue'
 import { http } from '../../request/http'
 import { register, login } from '../../request/api'
 import { useRouter } from 'vue-router'
+import { Language } from '@vicons/ionicons5'
+
+// import { CashOutline as CashIcon } from '@vicons/ionicons5'
 
 export default {
   name: 'Login',
   components: {
-    NButton, NForm, NFormItem, NInput, NSelect
+    NButton, NForm, NFormItem, NInput, NSelect, NIcon, Language
   },
   setup () {
     const notification = useNotification()
     const $route = useRouter()
     const swiped = ref(false)
     const locale = computed(() => i18n.global.locale)
+    const checkPassword = ref('')
+    const matchedPassword = ref(false)
+    const loginLoading = ref(false)
+    const registerLoading = ref(false)
+    const registerInput = ref(null)
+    const loginInput = ref(null)
     const loginRules = {
       username: [
         {
@@ -177,6 +201,21 @@ export default {
           },
           trigger: ['input']
         }
+      ],
+      check_password: [
+        {
+          required: true,
+          validator (rule, value) {
+            if (!checkPassword.value) {
+              return new Error('Required!')
+            } else if (checkPassword.value !== registerFormValue.value.password) {
+              matchedPassword.value = false
+              return new Error(registerFormText.value.mismatched_password)
+            }
+            return true
+          },
+          trigger: ['input', 'blur']
+        }
       ]
     }
     const loginFormValue = ref({
@@ -194,10 +233,10 @@ export default {
       zh_cn: {
         label_username: '用户名',
         label_password: '密码',
-        plholder_username: '请输入用户名',
-        plholder_password: '请输入密码',
         empty_username: '请输入用户名',
         short_password: '请至少输入6位密码',
+        plholder_username: '请输入用户名',
+        plholder_password: '请输入密码',
         loading: '登录中，请稍候',
         success: '登录成功！',
         error: '啊哦~登录失败！'
@@ -205,10 +244,10 @@ export default {
       en: {
         label_username: 'USERNAME',
         label_password: 'PASSWORD',
-        plholder_username: 'Input Username',
-        plholder_password: 'Input Password',
         empty_username: 'Please input username.',
         short_password: 'Minimun 6 letters!',
+        plholder_username: 'Please input username',
+        plholder_password: 'Please input password',
         loading: 'Loading...',
         success: 'Logged In!',
         error: 'Sadly, login failure!'
@@ -218,12 +257,16 @@ export default {
       zh_cn: {
         label_username: '用户名',
         label_password: '密码',
+        label_check_password: '确认密码',
         label_school: '学校',
         label_grade: '年级',
         label_name: '姓名',
         plholder_username: '请输入用户名',
         plholder_password: '请输入密码',
+        plholder_check_password: '请重复密码',
+        plholder_name: '请输入姓名',
         used_username: '用户名已被使用',
+        mismatched_password: '密码不匹配喔~',
         select: '请选择',
         schoolOptions: [
           '神秘大学',
@@ -249,12 +292,16 @@ export default {
       en: {
         label_username: 'USERNAME',
         label_password: 'PASSWORD',
+        label_check_password: 'CONFIRM PASSWORD',
         label_school: 'SCHOOL',
         label_grade: 'GRADE',
         label_name: 'NAME',
         plholder_username: 'Input Username',
         plholder_password: 'Input Password',
+        plholder_check_password: 'Please retype password',
+        plholder_name: 'Input name',
         used_username: 'Username already used.',
+        mismatched_password: 'Mismatched password~',
         select: 'Select',
         schoolOptions: [
           'Undefined',
@@ -346,7 +393,9 @@ export default {
     ])
     // methods
     const onLogIn = async () => {
+      loginLoading.value = true
       const res = await login(loginFormValue.value)
+      loginLoading.value = false
       if (res.code === 200) {
         notification.success({
           content: loginFormText.value.success || 'success',
@@ -362,12 +411,18 @@ export default {
     }
     // go to register
     const goToRegister = () => {
-      console.log('swipe')
       swiped.value = !swiped.value
-      console.log(swiped.value)
+      setTimeout(() => {
+        if (swiped.value) registerInput.value.focus()
+        else loginInput.value.focus()
+        clearTimeout()
+      }, 610)
     }
     const onRegister = async () => {
+      if (checkPassword.value !== registerFormValue.value.password) return
+      registerLoading.value = true
       const res = await register(registerFormValue.value)
+      registerLoading.value = false
       if (res.code === 201) {
         swiped.value = false
         notification.success({
@@ -387,8 +442,14 @@ export default {
       const currentLang = i18n.global.locale
       i18n.global.locale = currentLang === 'zh_cn' ? 'en' : 'zh_cn'
     }
+
+    const enterClick = () => {
+      if (swiped.value) onRegister()
+      else onLogIn()
+    }
+
     return {
-      swiped, // 是否切换到注册页
+      swiped, // switched to register page?
       locale,
       loginFormValue,
       registerFormValue,
@@ -401,16 +462,19 @@ export default {
       schoolOptions,
       gradeOptions,
       onRegister,
-      switchLanguage
+      switchLanguage,
+      checkPassword,
+      matchedPassword,
+      loginLoading,
+      registerLoading,
+      enterClick,
+      registerInput,
+      loginInput
     }
   }
 }
 </script>
 <style lang="scss">
-
-#header, #side, #footer {
-  display: none
-}
 .login-wrap {
   width: 100%;
   height: 100%;
@@ -420,28 +484,51 @@ export default {
   position: absolute;
   left: 0;
   height: 100%;
-  min-height: 750px;
+  min-height: 700px;
   width: max(30vw, 400px);
   background-color: $super-dark-grey;
+  .title {
+    margin-top: 20%;
+    letter-spacing: 0.2em;
+    text-align: center;
+    height: 10%;
+    display: flex;
+    align-items: center;
+    /* padding: 5% 0 15%; */
+    /* margin-bottom: 20%; */
+    font-size: 24px;
+    color: #fff;
+    justify-content: center;
+  }
   .normal-title {
     letter-spacing: 0;
   }
+  .more {
+    position: absolute;
+    bottom: 20px;
+    display: flex;
+    flex-direction: column;
+    font-size: 14px;
+    .language {
+      cursor: pointer;
+      margin-bottom: 10px;
+    }
+    .language:hover {
+      color: $pink;
+    }
+  }
 }
 .content {
-  padding-left: max(30vw, 400px);
-}
-.title {
-  margin-top: 20%;
-  letter-spacing: .2em;
-  text-align: center;
-  margin-bottom: 40px;
-  font-size: 24px;
-  color: #fff;
+  margin-left: max(30vw, 400px);
+  min-width: 1000px;
+  height: 100%;
+  min-height: 700px;
+  background: url('../../images/pitt-port.jpg') no-repeat;
+  background-size:100% 100%;
 }
 .slider {
   width: 80%;
-  height: 80%;
-  min-height: 600px;
+  min-height: 400px;
   margin: 0 auto;
   overflow: hidden;
   .container {
@@ -449,11 +536,11 @@ export default {
     height: 100%;
     display: flex;
     flex-direction: row;
-    transition: 0.4s ease;
+    transition: 0.6s ease;
     .form {
       width: 50%;
-      height: 100%;
-      padding: 0 10px;
+      height: 70%;
+      padding: 20px 10px 0;
       font-family: Arial, Helvetica, sans-serif;
       font-size: 20px;
       text-align: left;
@@ -482,6 +569,7 @@ export default {
       color: #fff;
     }
     .login-form {
+      padding-top: 30px;
       .divide {
         height: 20px;
         width: 100%;

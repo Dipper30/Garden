@@ -7,8 +7,6 @@ export default {
   join_us: '快来加入我们吧！',
   return: '返回登录',
   register: '一键注册',
-  form: {
-    label_username: '用户名',
-    label_pwd: '密码'
-  }
+  language: 'Language',
+  contact: '联系我们：'
 }

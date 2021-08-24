@@ -8,8 +8,6 @@ export default {
   join_us: 'Come and Join Us Now!',
   return: 'Return to Log In',
   register: 'Register Now!',
-  form: {
-    label_username: 'USERNAME',
-    label_pwd: 'PASSWORD'
-  }
+  language: '语言',
+  contact: 'Contact Us: '
 }
