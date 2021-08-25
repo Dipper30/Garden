@@ -12,7 +12,7 @@
     </div>
     <div class="info">
       <div class="profile">
-        <div class="avatar" :class="{'hover-avatar': hover}" @mouseover="onMouseOver('avatar')" @mouseleave="onMouseOut('avatar')"></div>
+        <div class="avatar" :class="{'hover-avatar': hover}" @mouseover="onMouseOver('avatar')" @mouseleave="onMouseLeave('avatar')"></div>
         <div class="board" id="board" @mouseover="onMouseOver('board')" @mouseleave="onMouseLeave('board')">
           <div class="name">{{ user.name }}</div>
         </div>
@@ -72,7 +72,6 @@ export default {
     const onMouseOver = section => {
       isHovering[section] = true
       showBoard()
-      console.log(isHovering)
     }
     const onMouseLeave = section => {
       // let onMouseOver excute first
