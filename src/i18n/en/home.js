@@ -1,4 +1,9 @@
 export default {
   search: 'Search',
-  slogan: 'Find Your Friends Heres'
+  slogan: 'Find Your Friends Heres',
+  options: {
+    message: 'Messages',
+    feedback: 'Feedback',
+    publish: 'Publish'
+  }
 }

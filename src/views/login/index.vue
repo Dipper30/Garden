@@ -408,8 +408,8 @@ export default {
         const { data: user, token } = res
         $store._mutations.setUser[0](user)
         $store._mutations.setToken[0](token)
-        console.log(user, $store.state.token)
         localStorage.setItem('token', token)
+        localStorage.setItem('user', JSON.stringify(user))
         $route.push('/home')
       } else {
         notification.warning({
