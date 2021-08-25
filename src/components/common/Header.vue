@@ -102,7 +102,8 @@ export default {
     const switchLanguage = () => {
       i18n.global.locale = locale.value === 'zh_cn' ? 'en' : 'zh_cn'
     }
-    const user = JSON.parse($store.getters.getUser)
+    const user = $store.getters.getUser
+    // const user = JSON.parse($store.getters.getUser)
     return {
       goLogIn,
       onMouseOver,

@@ -6,7 +6,7 @@ export const getters = {
     return state.currentAccount
   },
   getUser: state => {
-    return state.user || localStorage.getItem('user')
+    return state.user || JSON.parse(localStorage.getItem('user'))
   },
   getUserID: state => {
     return state.user?.id
