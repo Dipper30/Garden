@@ -173,7 +173,7 @@ export default {
     }
   }
   .info {
-    width: max(30vw, 500px);
+    width: max(30vw, 450px);
     height: 100px;
     position: relative;
     .profile {
