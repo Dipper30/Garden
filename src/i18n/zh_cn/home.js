@@ -4,6 +4,7 @@ export default {
   options: {
     message: '消息',
     feedback: '反馈',
-    publish: '发帖'
+    publish: '发帖',
+    language: '语言'
   }
 }

@@ -30,6 +30,12 @@
           </n-icon>
           {{ $t("home.options.feedback") }}
         </div>
+        <div class="language" @click="switchLanguage">
+          <n-icon size="20">
+            <language />
+          </n-icon>
+          {{ $t("home.options.language") }}
+        </div>
         <div class="publish">
           <n-icon size="20">
             <publish />
@@ -45,9 +51,10 @@
 // import { CashOutline as CashIcon } from '@vicons/ionicons5'
 import SearchBox from '../common-element/SearchBox.vue'
 import { NIcon } from 'naive-ui'
-import { ChatboxEllipsesOutline as Msg, Help as Feedback, PaperPlaneSharp as Publish } from '@vicons/ionicons5'
-import { ref, reactive } from 'vue'
+import { ChatboxEllipsesOutline as Msg, Help as Feedback, PaperPlaneSharp as Publish, Language } from '@vicons/ionicons5'
+import { ref, reactive, computed } from 'vue'
 import { useStore } from 'vuex'
+import i18n from '../../i18n'
 
 export default {
   name: 'Header',
@@ -56,11 +63,13 @@ export default {
     NIcon,
     Msg,
     Feedback,
-    Publish
+    Publish,
+    Language
   },
   setup (props, { emit }) {
     const hover = ref(false)
     const $store = useStore()
+    const locale = computed(() => i18n.global.locale)
     // const hideBoard = ref(true)
     const isHovering = reactive({
       avatar: false,
@@ -90,11 +99,15 @@ export default {
       document.getElementById('board').style.display = 'none'
       hover.value = false
     }
+    const switchLanguage = () => {
+      i18n.global.locale = locale.value === 'zh_cn' ? 'en' : 'zh_cn'
+    }
     const user = JSON.parse($store.getters.getUser)
     return {
       goLogIn,
       onMouseOver,
       onMouseLeave,
+      switchLanguage,
       hover,
       user,
       isHovering
@@ -160,7 +173,7 @@ export default {
     }
   }
   .info {
-    width: max(30vw, 450px);
+    width: max(30vw, 500px);
     height: 100px;
     position: relative;
     .profile {
@@ -177,12 +190,14 @@ export default {
         border-radius: 50%;
         transition: 0.1s linear;
         cursor: pointer;
+        z-index: 1003;
       }
       .hover-avatar {
         height: 70px;
         width: 70px;
       }
       .board {
+        z-index: 1002;
         display: none;
         position: absolute;
         height: 199px;
@@ -208,7 +223,7 @@ export default {
       .n-icon svg {
         transform: translateY(5px);
       }
-      .message, .publish, .feedback {
+      .message, .publish, .feedback, .language {
         line-height: 35px;
         padding: 0 10px 0 8px;
         height: 35px;
@@ -217,7 +232,7 @@ export default {
         border-radius: 5px;
         color: darkslategrey;
       }
-      .message:hover, .feedback:hover {
+      .message:hover, .feedback:hover, .language:hover {
         color: #fff;
         background-color: $dark-grey;
       }

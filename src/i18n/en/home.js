@@ -4,6 +4,7 @@ export default {
   options: {
     message: 'Messages',
     feedback: 'Feedback',
-    publish: 'Publish'
+    publish: 'Publish',
+    language: 'Language'
   }
 }

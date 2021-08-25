@@ -59,7 +59,7 @@ export default {
 
 <style lang="scss">
 .search-box {
-  width: 350px;
+  width: 400px;
   height: 30px;
   display: flex;
   z-index: 1001;
