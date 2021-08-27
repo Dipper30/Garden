@@ -4,9 +4,11 @@ import { actions } from './actions'
 import { getters } from './getters'
 import { mutations } from './mutations'
 
-export const store = createStore({
+const store = createStore({
   state,
   actions,
   mutations,
   getters
 })
+
+export default store

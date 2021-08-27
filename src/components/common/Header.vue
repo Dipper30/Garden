@@ -143,7 +143,7 @@ export default {
     .img {
       background: url('../../images/pitt-panther-logo.png') no-repeat;
       height: 90px;
-      background-size: 240px 90px;
+      background-size: 220px 90px;
     }
   }
   @media screen and (max-width: 1000px) {

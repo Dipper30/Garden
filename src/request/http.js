@@ -1,6 +1,6 @@
 import axios from 'axios'
 import qs from 'qs'
-import { store } from '../store/index'
+import store from '../store/index'
 
 export const apiBaseURL = process.env.VUE_APP_BASE_URL || 'http://localhost:3000/api/v1'
 // export const apiBaseURL = `http://localhost:3000/api/v1`

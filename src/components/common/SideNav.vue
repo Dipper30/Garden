@@ -1,11 +1,29 @@
 <template>
   <div id="side-nav">
     <div class="menu" @click="onMenuSelected">
-      <div class="menu-item" data-index=1 :class="{'selected': selectedIndex === 1}">
+      <div class="menu-item" data-index=1 :class="{'selected': selectedIndex == 1}">
         <n-icon class="icon" size="20">
           <clock />
         </n-icon>
-        Days Matter
+        {{ $t("home.menu.clock") }}
+      </div>
+      <div class="menu-item" data-index=2 :class="{'selected': selectedIndex == 2}">
+        <n-icon class="icon" size="20">
+          <community />
+        </n-icon>
+        {{ $t("home.menu.community") }}
+      </div>
+      <div class="menu-item" data-index=3 :class="{'selected': selectedIndex == 3}">
+        <n-icon class="icon" size="20">
+          <partner />
+        </n-icon>
+        {{ $t("home.menu.partners") }}
+      </div>
+      <div class="menu-item" data-index=4 :class="{'selected': selectedIndex == 4}">
+        <n-icon class="icon" size="20">
+          <feedback />
+        </n-icon>
+        {{ $t("home.menu.feedback") }}
       </div>
     </div>
     <!-- {{ $t("home.options.feedback") }} -->
@@ -14,19 +32,29 @@
 <script>
 import { NIcon } from 'naive-ui'
 import { ref } from 'vue'
-import { Clock24Regular as Clock } from '@vicons/fluent'
+import {
+  Clock24Regular as Clock,
+  ChatBubblesQuestion20Regular as Feedback,
+  PeopleCheckmark20Regular as Partner
+} from '@vicons/fluent'
+import { AccessPoint as Community } from '@vicons/tabler'
+// import { MENU } from '../../utils/enum.js'
 
 export default {
   name: 'SideNav',
   components: {
     Clock,
-    NIcon
+    NIcon,
+    Feedback,
+    Partner,
+    Community
   },
-  setup () {
+  setup (props) {
     const selectedIndex = ref(0)
 
     const onMenuSelected = (e) => {
-      console.log(e.target.dataset.index)
+      selectedIndex.value = e.target.dataset.index || 0
+      props.emit('onMenuSelected', e.target.dataset.index || 0)
     }
 
     return {
@@ -45,8 +73,8 @@ export default {
   color: $super-dark-grey;
   left: 0;
   top: max(calc(50% - 200px), 130px);
-  border: 1px solid #333;
   .menu-item {
+    text-align: left;
     height: 30px;
     line-height: 30px;
     cursor: pointer;

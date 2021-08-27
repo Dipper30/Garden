@@ -488,111 +488,111 @@ export default {
   width: 100%;
   height: 100%;
   position: relative;
-}
-.side {
-  position: absolute;
-  left: 0;
-  height: 100%;
-  min-height: 700px;
-  width: max(30vw, 400px);
-  background-color: $super-dark-grey;
-  .title {
-    margin-top: 20%;
-    letter-spacing: 0.2em;
-    text-align: center;
-    height: 10%;
-    display: flex;
-    align-items: center;
-    /* padding: 5% 0 15%; */
-    /* margin-bottom: 20%; */
-    font-size: 24px;
-    color: #fff;
-    justify-content: center;
-  }
-  .normal-title {
-    letter-spacing: 0;
-  }
-  .more {
+  .side {
     position: absolute;
-    bottom: 20px;
-    display: flex;
-    flex-direction: column;
-    font-size: 14px;
-    .language {
-      cursor: pointer;
-      margin-bottom: 10px;
-    }
-    .language:hover {
-      color: $pink;
-    }
-  }
-}
-.content {
-  margin-left: max(30vw, 400px);
-  min-width: 1000px;
-  height: 100%;
-  min-height: 700px;
-  background: url('../../images/pitt-port.jpg') no-repeat;
-  background-size:100% 100%;
-}
-.slider {
-  width: 80%;
-  min-height: 400px;
-  margin: 0 auto;
-  overflow: hidden;
-  .container {
-    width: 200%;
+    left: 0;
     height: 100%;
-    display: flex;
-    flex-direction: row;
-    transition: 0.6s ease;
-    .form {
-      width: 50%;
-      height: 70%;
-      padding: 20px 10px 0;
-      font-family: Arial, Helvetica, sans-serif;
-      font-size: 20px;
-      text-align: left;
-      .n-form-item-label {
-        color: #fff;
-        letter-spacing: 0.1rem;
+    min-height: 700px;
+    width: max(30vw, 400px);
+    background-color: $super-dark-grey;
+    .title {
+      margin-top: 20%;
+      letter-spacing: 0.2em;
+      text-align: center;
+      height: 10%;
+      display: flex;
+      align-items: center;
+      /* padding: 5% 0 15%; */
+      /* margin-bottom: 20%; */
+      font-size: 24px;
+      color: #fff;
+      justify-content: center;
+    }
+    .normal-title {
+      letter-spacing: 0;
+    }
+    .more {
+      position: absolute;
+      bottom: 20px;
+      display: flex;
+      flex-direction: column;
+      font-size: 14px;
+      .language {
+        cursor: pointer;
+        margin-bottom: 10px;
       }
-      .options {
+      .language:hover {
+        color: $pink;
+      }
+    }
+    .slider {
+      width: 80%;
+      min-height: 400px;
+      margin: 0 auto;
+      overflow: hidden;
+      .container {
+        width: 200%;
+        height: 100%;
         display: flex;
         flex-direction: row;
-        justify-content: space-between;
-        align-items: center;
-        .left {
-          display: flex;
-          flex-direction: column;
-          font-size: 12px;
-          justify-content: space-between;
+        transition: 0.6s ease;
+        .form {
+          width: 50%;
+          height: 70%;
+          padding: 20px 10px 0;
+          font-family: Arial, Helvetica, sans-serif;
+          font-size: 20px;
+          text-align: left;
+          .n-form-item-label {
+            color: #fff;
+            letter-spacing: 0.1rem;
+          }
+          .options {
+            display: flex;
+            flex-direction: row;
+            justify-content: space-between;
+            align-items: center;
+            .left {
+              display: flex;
+              flex-direction: column;
+              font-size: 12px;
+              justify-content: space-between;
+            }
+            .text-btn:hover {
+              cursor: pointer;
+              color: $pink;
+              text-shadow: $pink;
+            }
+          }
+          font-weight: 500;
+          color: #fff;
         }
-        .text-btn:hover {
-          cursor: pointer;
-          color: $pink;
-          text-shadow: $pink;
+        .login-form {
+          padding-top: 30px;
+          .divide {
+            height: 20px;
+            width: 100%;
+          }
+        }
+        .regiser-form {
+          .divide {
+            height: 15px;
+            width: 100%;
+          }
         }
       }
-      font-weight: 500;
-      color: #fff;
-    }
-    .login-form {
-      padding-top: 30px;
-      .divide {
-        height: 20px;
-        width: 100%;
-      }
-    }
-    .regiser-form {
-      .divide {
-        height: 15px;
-        width: 100%;
+      .register-page {
+        transform: translate(-50%, 0);
       }
     }
   }
-  .register-page {
-    transform: translate(-50%, 0);
+  .content {
+    margin-left: max(30vw, 400px);
+    min-width: 1000px;
+    height: 100%;
+    min-height: 700px;
+    background: url('../../images/pitt-port.jpg') no-repeat;
+    background-size:100% 100%;
   }
 }
 .n-button__content {
