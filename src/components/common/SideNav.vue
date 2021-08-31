@@ -49,12 +49,12 @@ export default {
     Partner,
     Community
   },
-  setup (props) {
+  setup (props, { emit }) {
     const selectedIndex = ref(0)
 
     const onMenuSelected = (e) => {
       selectedIndex.value = e.target.dataset.index || 0
-      props.emit('onMenuSelected', e.target.dataset.index || 0)
+      emit('onMenuSelected', e.target.dataset.index || 0)
     }
 
     return {

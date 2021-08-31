@@ -126,6 +126,7 @@ import { register, login } from '../../request/api'
 import { useRouter } from 'vue-router'
 import { Language } from '@vicons/ionicons5'
 import { useStore } from 'vuex'
+import { switchLanguage } from '../../utils/tools.js'
 
 // import { CashOutline as CashIcon } from '@vicons/ionicons5'
 
@@ -447,10 +448,10 @@ export default {
       console.log(res, $route)
     }
 
-    const switchLanguage = () => {
-      const currentLang = i18n.global.locale
-      i18n.global.locale = currentLang === 'zh_cn' ? 'en' : 'zh_cn'
-    }
+    // const switchLanguage = () => {
+    //   const currentLang = i18n.global.locale
+    //   i18n.global.locale = currentLang === 'zh_cn' ? 'en' : 'zh_cn'
+    // }
 
     const enterClick = () => {
       if (swiped.value) onRegister()

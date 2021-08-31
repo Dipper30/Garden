@@ -3,7 +3,7 @@ import locales from './locales'
 // import store from '../store'
 
 const i18n = createI18n({
-  locale: 'zh_cn',
+  locale: localStorage.getItem('locale') || 'zh_cn',
   messages: locales
 })
 
