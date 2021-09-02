@@ -1,9 +1,9 @@
 <template>
-  <div>
+  <div id="home">
     <Header @goLogIn="goLogIn" />
     <SideNav @onMenuSelected="onMenuSelected" />
     <div class="content">
-      <div v-if="menuIndex==1" ><ClockPanel /></div>
+      <div v-if="menuIndex==1" ><ClockPage /></div>
     </div>
   </div>
 </template>
@@ -11,7 +11,7 @@
 <script>
 import Header from '../../components/common/Header.vue'
 import SideNav from '../../components/common/SideNav.vue'
-import ClockPanel from '../../components/ClockPanel.vue'
+import ClockPage from '../../components/ClockPage.vue'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
@@ -19,7 +19,7 @@ export default {
   components: {
     Header,
     SideNav,
-    ClockPanel
+    ClockPage
   },
   setup () {
     const $route = useRouter()
@@ -41,15 +41,17 @@ export default {
 }
 </script>
 
-<style lang="scss">
+<style lang="scss" scoped>
 #header {
   display: flex;
 }
-.content {
+#home {
+  .content {
   margin-left: 200px;
   /* height: 100%; */
   min-height: calc(100vh - 130px);
-  min-width: calc(100vw - 150px);
+  min-width: calc(100vw - 250px);
   /* box-shadow: 0px 0px 100px 10px rgb(0 0 0 / 20%); */
+}
 }
 </style>

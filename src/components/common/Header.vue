@@ -52,9 +52,10 @@
 import SearchBox from '../common-element/SearchBox.vue'
 import { NIcon } from 'naive-ui'
 import { ChatboxEllipsesOutline as Msg, Help as Feedback, PaperPlaneSharp as Publish, Language } from '@vicons/ionicons5'
-import { ref, reactive, computed } from 'vue'
+import { ref, reactive } from 'vue'
 import { useStore } from 'vuex'
-import i18n from '../../i18n'
+// import i18n from '../../i18n'
+import { switchLanguage } from '../../utils/tools.js'
 
 export default {
   name: 'Header',
@@ -69,7 +70,7 @@ export default {
   setup (props, { emit }) {
     const hover = ref(false)
     const $store = useStore()
-    const locale = computed(() => i18n.global.locale)
+    // const locale = computed(() => i18n.global.locale)
     // const hideBoard = ref(true)
     const isHovering = reactive({
       avatar: false,
@@ -99,9 +100,9 @@ export default {
       document.getElementById('board').style.display = 'none'
       hover.value = false
     }
-    const switchLanguage = () => {
-      i18n.global.locale = locale.value === 'zh_cn' ? 'en' : 'zh_cn'
-    }
+    // const switchLanguage = () => {
+    //   i18n.global.locale = locale.value === 'zh_cn' ? 'en' : 'zh_cn'
+    // }
     const user = $store.getters.getUser
     // const user = JSON.parse($store.getters.getUser)
     return {

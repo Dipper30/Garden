@@ -1,5 +1,5 @@
 <template>
-  <div :class="buttonClass">
+  <div class="d-button" :class="buttonClass">
     <slot></slot>
   </div>
 </template>
@@ -40,7 +40,26 @@ export default {
 }
 </script>
 <style lang="scss">
-.normal {
-  color: #fff;
+.d-button {
+  border-radius: 5px;
+  border: 1px #212121 solid;
+  color: $dark-grey;
+  padding: 3px 12px;
+  background: transparent;
+  width: fit-content;
+  font-weight: 500;
+  font-size: 16px;
+  cursor: pointer;
+  &:hover {
+    color: #fff;
+    background: $dark-grey;
+  }
+  &:active {
+    color: $super-dark-grey;
+    background: #fff;
+  }
+  .n-icon svg {
+    transform: translateY(5px);
+  }
 }
 </style>
