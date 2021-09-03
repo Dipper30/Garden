@@ -1,13 +1,15 @@
+import moment from 'moment'
+
 export const clocks = {
   future: [
     {
-      set_time: 1630528632 + 2000000,
-      title: '今天',
+      set_time: moment().year(2021).month(11).day(25).unix(),
+      title: '圣诞节',
       desc: ''
     },
     {
-      set_time: 1630600000 + 1000000,
-      title: '不知名的一天',
+      set_time: moment().month(9).day(31).unix(),
+      title: '生日',
       desc: ''
     },
     {
@@ -16,7 +18,7 @@ export const clocks = {
       desc: '啊哦，这是描述'
     },
     {
-      set_time: 1630528632 + 2000000,
+      set_time: moment().unix(),
       title: '今天',
       desc: ''
     },

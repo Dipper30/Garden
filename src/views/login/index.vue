@@ -118,7 +118,7 @@
 </template>
 <script>
 // import DButton from '../../components/common-element/DButton.vue'
-import { NButton, NForm, NFormItem, NInput, NSelect, useNotification, NIcon } from 'naive-ui'
+import { NButton, NForm, NFormItem, NInput, NSelect, useNotification, useMessage, NIcon } from 'naive-ui'
 import i18n from '../../i18n'
 import { ref, computed } from 'vue'
 import { http } from '../../request/http'
@@ -127,6 +127,7 @@ import { useRouter } from 'vue-router'
 import { Language } from '@vicons/ionicons5'
 import { useStore } from 'vuex'
 import { switchLanguage } from '../../utils/tools.js'
+import { loginTextConfig, registerTextConfig } from './textConfig.js'
 
 // import { CashOutline as CashIcon } from '@vicons/ionicons5'
 
@@ -137,6 +138,7 @@ export default {
   },
   setup () {
     const notification = useNotification()
+    const $message = useMessage()
     const $route = useRouter()
     const swiped = ref(false)
     const locale = computed(() => i18n.global.locale)
@@ -233,102 +235,6 @@ export default {
       school: null,
       name: ''
     })
-    const loginTextConfig = {
-      zh_cn: {
-        label_username: '用户名',
-        label_password: '密码',
-        empty_username: '请输入用户名',
-        short_password: '请至少输入6位密码',
-        plholder_username: '请输入用户名',
-        plholder_password: '请输入密码',
-        loading: '登录中，请稍候',
-        success: '登录成功！',
-        error: '啊哦~登录失败！'
-      },
-      en: {
-        label_username: 'USERNAME',
-        label_password: 'PASSWORD',
-        empty_username: 'Please input username.',
-        short_password: 'Minimun 6 letters!',
-        plholder_username: 'Please input username',
-        plholder_password: 'Please input password',
-        loading: 'Loading...',
-        success: 'Logged In!',
-        error: 'Sadly, login failure!'
-      }
-    }
-    const registerTextConfig = {
-      zh_cn: {
-        label_username: '用户名',
-        label_password: '密码',
-        label_check_password: '确认密码',
-        label_school: '学校',
-        label_grade: '年级',
-        label_name: '姓名',
-        plholder_username: '请输入用户名',
-        plholder_password: '请输入密码',
-        plholder_check_password: '请重复密码',
-        plholder_name: '请输入姓名',
-        used_username: '用户名已被使用',
-        mismatched_password: '密码不匹配喔~',
-        select: '请选择',
-        schoolOptions: [
-          '神秘大学',
-          '匹兹堡大学',
-          '卡内基梅隆大学'
-        ],
-        gradeOptions: [
-          '未知',
-          '大一',
-          '大二',
-          '大三',
-          '大四',
-          '研一',
-          '研二',
-          '研三',
-          '博士',
-          '教授',
-          '无敌'
-        ],
-        success: '注册成功，欢迎加入Pitt大家庭!',
-        error: '啊哦~注册失败了喔!'
-      },
-      en: {
-        label_username: 'USERNAME',
-        label_password: 'PASSWORD',
-        label_check_password: 'CONFIRM PASSWORD',
-        label_school: 'SCHOOL',
-        label_grade: 'GRADE',
-        label_name: 'NAME',
-        plholder_username: 'Input Username',
-        plholder_password: 'Input Password',
-        plholder_check_password: 'Please retype password',
-        plholder_name: 'Input name',
-        used_username: 'Username already used.',
-        mismatched_password: 'Mismatched password~',
-        select: 'Select',
-        schoolOptions: [
-          'Undefined',
-          'University of Pittsburgh',
-          'Carnegie Mellon University'
-        ],
-        gradeOptions: [
-          'Unknoen',
-          'Freshman',
-          'Sophermore',
-          'Junior',
-          'Senior',
-          'Grad1',
-          'Grad2',
-          'Grad3',
-          'Doctor',
-          'Professor',
-          'Invincible'
-        ],
-        success: 'You are registered now. Welcome to Pitt!',
-        error: 'Sadly, registration failure!'
-      }
-    }
     const loginFormText = computed(() => {
       return loginTextConfig[i18n.global.locale]
     })
@@ -402,10 +308,7 @@ export default {
       const res = await login(loginFormValue.value)
       loginLoading.value = false
       if (res.code === 200) {
-        notification.success({
-          content: loginFormText.value.success || 'success',
-          duration: 3000
-        })
+        $message.success(loginFormText.value.success || 'success')
         const { data: user, token } = res
         $store._mutations.setUser[0](user)
         $store._mutations.setToken[0](token)

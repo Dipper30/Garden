@@ -1,19 +1,22 @@
 <template>
   <div id="app">
     <n-notification-provider>
-      <Layout />
+      <n-message-provider>
+        <Layout />
+      </n-message-provider>
     </n-notification-provider>
   </div>
 </template>
 
 <script>
-import { NNotificationProvider } from 'naive-ui'
+import { NNotificationProvider, NMessageProvider } from 'naive-ui'
 import Layout from './components/common/Layout.vue'
 
 export default {
   name: 'App',
   components: {
     NNotificationProvider,
+    NMessageProvider,
     Layout
     // NConfigProvider
   }

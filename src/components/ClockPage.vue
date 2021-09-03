@@ -11,14 +11,14 @@
     <div class="clock-board">
       <div class="left-part">
         <div class="future-list-board">
-          <div class="future-title">值得期待的日子</div>
+          <div class="future-title">{{ $t('clock.futureTitle') }}</div>
           <div class="future" @click="onSelectFuture">
             <ClockItem v-for="(item, index) in future" :key="index" :clockItem="item"
             :data-item="JSON.stringify(item)" :selected="selectedIndex==index && selectedFuture" :data-index="index" />
           </div>
         </div>
         <div class="past-list-board">
-          <div class="past-title">一些怀念</div>
+          <div class="past-title">{{ $t('clock.pastTitle') }}</div>
           <div class="past" @click="onSelectPast">
           <ClockItem v-for="(item, index) in past" :key="index" :clockItem="item"
           :data-item="JSON.stringify(item)" :selected="selectedIndex==index && !selectedFuture" :data-index="index" />
@@ -48,7 +48,7 @@ export default {
     DButton
   },
   setup () {
-    const selectedIndex = ref(0)
+    const selectedIndex = ref(-1)
     const selectedItem = reactive({
       clock: null
     })

@@ -50,6 +50,7 @@ export default {
   font-weight: 500;
   font-size: 16px;
   cursor: pointer;
+  transition: 0.1s linear;
   &:hover {
     color: #fff;
     background: $dark-grey;

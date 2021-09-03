@@ -7,10 +7,24 @@ export const switchLanguage = () => {
   localStorage.setItem('locale', i18n.global.locale)
 }
 
+/**
+ * @param {number} ts // unix timestamp
+ * @returns {string}
+ */
+export const calcDate = (ts) => {
+  if (!ts || typeof ts !== 'number') return ''
+  return moment(ts * 1000).format('YYYY-MM-DD hh:mm:ss')
+}
+
 export const calcTimeDifference = (timeEnd, timeBegin) => {
   if (!timeBegin) timeBegin = moment().unix()
-  timeEnd = timeEnd < timeBegin ? 1000 * timeBegin : 1000 * timeEnd
-  timeBegin = timeEnd < timeBegin ? 1000 * timeEnd : 1000 * timeBegin
+  if (timeEnd < timeBegin) {
+    const temp = timeEnd
+    timeEnd = timeBegin
+    timeBegin = temp
+  }
+  timeEnd *= 1000
+  timeBegin *= 1000
   if (typeof timeEnd !== 'number' || typeof timeBegin !== 'number') return null
   const days = moment(timeEnd).diff(moment(timeBegin), 'days')
   const hours = moment(timeEnd - days * 24 * 60 * 60 * 1000).diff(moment(timeBegin), 'hours')
