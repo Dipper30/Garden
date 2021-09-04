@@ -5,6 +5,9 @@
     <div class="content">
       <div v-if="menuIndex==1" ><ClockPage /></div>
     </div>
+    <div class="content">
+      <div v-if="menuIndex==3" ><NewPage /></div>
+    </div>
   </div>
 </template>
 
@@ -12,6 +15,7 @@
 import Header from '../../components/common/Header.vue'
 import SideNav from '../../components/common/SideNav.vue'
 import ClockPage from '../../components/ClockPage.vue'
+import NewPage from '../../components/NewPage.vue'
 import { useRouter } from 'vue-router'
 import { ref } from 'vue'
 
@@ -19,7 +23,8 @@ export default {
   components: {
     Header,
     SideNav,
-    ClockPage
+    ClockPage,
+    NewPage
   },
   setup () {
     const $route = useRouter()
