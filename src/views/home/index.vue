@@ -4,9 +4,7 @@
     <SideNav @onMenuSelected="onMenuSelected" />
     <div class="content">
       <div v-if="menuIndex==1" ><ClockPage /></div>
-    </div>
-    <div class="content">
-      <div v-if="menuIndex==3" ><NewPage /></div>
+      <div v-if="menuIndex==4" ><NewPage /></div>
     </div>
   </div>
 </template>

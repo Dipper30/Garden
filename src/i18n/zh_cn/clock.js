@@ -10,5 +10,6 @@ export default {
     countdownDetail: '{hours} 时 {minutes} 分 {seconds} 秒'
   },
   futureTitle: '一些期许',
-  pastTitle: '一些回忆'
+  pastTitle: '一些回忆',
+  new: '新东西'
 }

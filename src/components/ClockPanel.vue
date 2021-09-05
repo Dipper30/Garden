@@ -8,7 +8,7 @@
           </n-icon>
         </template>
         <template #extra>
-          <d-button>{{ $t("clock.panel.emptyExtra") }}</d-button>
+          <d-button>{{ $t("clock.new") }}</d-button>
         </template>
       </n-empty>
     </div>
