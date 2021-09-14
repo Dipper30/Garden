@@ -8,12 +8,12 @@ export const switchLanguage = () => {
 }
 
 /**
- * @param {number} ts // unix timestamp
+ * @param {number|String} ts // unix timestamp
  * @returns {string}
  */
 export const calcDate = (ts) => {
-  if (!ts || typeof ts !== 'number') return ''
-  return moment(ts * 1000).format('YYYY-MM-DD hh:mm:ss')
+  if (!ts || typeof Number(ts) !== 'number') return ''
+  return moment(Number(ts) * 1000).format('YYYY-MM-DD hh:mm:ss')
 }
 
 export const calcTimeDifference = (timeEnd, timeBegin) => {
@@ -37,3 +37,22 @@ export const calcTimeDifference = (timeEnd, timeBegin) => {
     seconds
   }
 }
+
+// 获取当前日期零点时的时间戳
+/**
+ * @param {ts: number|string} 输入当前日期时间戳
+ * @returns {ts: number} 返回当前日期的unix秒级时间戳
+ */
+// 把当前日期变成unix秒级时间戳
+export const getDateUnixTS = (ts = 0) => Number(ts) === 0
+  ? moment.unix(moment().format('X')).startOf('day').format('X')
+  : moment.unix(Number(ts)).startOf('day').format('X')
+
+// 获取当前日期零点时刻的日期
+export const getStartOfDate = () => new Date(Number(moment().startOf('day').format('x')))
+
+// 返回当前时间秒级时间戳
+export const getCurrentUnixTS = () => Number(moment().format('X'))
+
+// 返回当前时间毫秒级时间戳
+export const getCurrentTS = () => Number(moment().format('x'))

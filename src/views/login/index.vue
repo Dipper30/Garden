@@ -312,8 +312,10 @@ export default {
         const { data: user, token } = res
         $store._mutations.setUser[0](user)
         $store._mutations.setToken[0](token)
+        $store._mutations.setStatus[0](1)
         localStorage.setItem('token', token)
         localStorage.setItem('user', JSON.stringify(user))
+        localStorage.setItem('user_id', user.id)
         $route.push('/home')
       } else {
         notification.warning({

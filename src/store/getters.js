@@ -9,12 +9,15 @@ export const getters = {
     return state.user || JSON.parse(localStorage.getItem('user'))
   },
   getUserID: state => {
-    return state.user?.id
+    return state.user?.id || Number(localStorage.getItem('user_id'))
   },
   getCurrentRoom: state => {
     return state.currentRoom
   },
   getTabbar: state => {
     return state.showTabbar
+  },
+  getStatus: state => {
+    return state.status
   }
 }

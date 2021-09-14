@@ -1,10 +1,10 @@
 <template>
   <div class="clock-item" :class="{'selected': selected}">
     <div class="count-down-title">
-      {{ clockItem.title }}
+      <span>{{ clockItem.title }}</span>
     </div>
     <div class="count-down-days">
-      还有 {{countdown.days}} 天
+      <span>还有 {{countdown.days}} 天</span>
     </div>
   </div>
 </template>
@@ -22,7 +22,6 @@ export default {
   },
   setup (props) {
     const countdown = calcTimeDifference(props.clockItem.set_time)
-    console.log('countdown', countdown)
     return {
       countdown
     }

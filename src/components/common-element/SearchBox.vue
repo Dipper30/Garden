@@ -62,7 +62,7 @@ export default {
   width: 400px;
   height: 30px;
   display: flex;
-  z-index: 1001;
+  z-index: 101;
   .input {
     width: 270px;
     height: 28px;

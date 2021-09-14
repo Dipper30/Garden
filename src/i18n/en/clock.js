@@ -10,5 +10,7 @@ export default {
     countdownDetail: '{hours} hours {minutes} minutes {seconds} seconds'
   },
   futureTitle: 'Coming Days',
-  pastTitle: 'Memories'
+  pastTitle: 'Memories',
+  displayBoard: 'Display Board',
+  createClock: 'Create New'
 }

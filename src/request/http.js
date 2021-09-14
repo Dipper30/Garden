@@ -46,7 +46,7 @@ http.interceptors.response.use(
       case 10002:
         // 身份校验错误
         console.log('wrong token, please relogin')
-        throw msg
+        return {code, msg}
       case 10004:
         console.log('用户名密码错误')
         return data

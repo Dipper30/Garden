@@ -30,3 +30,30 @@ export const getUserByID = async params => {
 export const updateUserInfo = params => {
   return http.post('/updateUser', params)
 }
+
+/**
+ * create new clock
+ * @param {user_id: number, set_time: number, desc:string, title:string}
+ * @returns {code, msg} 201 if succeed
+ */
+export const createClock = params => {
+  return http.post('/clock', params)
+}
+
+/**
+ * get all clocks by user id
+ * @param {user_id: number, locale: number}
+ * @returns {
+ *  code, msg, data: {total: number, future: [], past: []}
+ * }
+ */
+export const getClocksByUserID = async params => {
+  const { user_id, locale } = params
+  const res = await http.get(`/clock?user_id=${user_id}&locale=${locale}`)
+  if (!res.data) return null
+  return res.data
+}
+
+export const deleteClockByID = async params => {
+  return http.post('/deleteClock', params)
+}

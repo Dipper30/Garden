@@ -23,5 +23,8 @@ export const mutations = {
   },
   setSwitchTab: (state, bool) => {
     state.isSwitchTab = bool
+  },
+  setStatus: (state, status) => {
+    state.status = status
   }
 }

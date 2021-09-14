@@ -70,7 +70,6 @@ export default {
       countdown.value = calcTimeDifference(props.clock.set_time)
       window.t = setInterval(() => {
         countdown.value = calcTimeDifference(props.clock.set_time)
-        console.log(countdown.value)
       }, 1000)
     }
     return {

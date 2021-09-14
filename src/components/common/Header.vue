@@ -15,6 +15,7 @@
         <div class="avatar" :class="{'hover-avatar': hover}" @mouseover="onMouseOver('avatar')" @mouseleave="onMouseLeave('avatar')"></div>
         <div class="board" id="board" @mouseover="onMouseOver('board')" @mouseleave="onMouseLeave('board')">
           <div class="name">{{ user.name }}</div>
+          <div style="cursor:pointer;" @click="goToLogIn">点我登录Log in</div>
         </div>
       </div>
       <div class="options">
@@ -54,6 +55,7 @@ import { NIcon } from 'naive-ui'
 import { ChatboxEllipsesOutline as Msg, Help as Feedback, PaperPlaneSharp as Publish, Language } from '@vicons/ionicons5'
 import { ref, reactive } from 'vue'
 import { useStore } from 'vuex'
+import { useRouter } from 'vue-router'
 // import i18n from '../../i18n'
 import { switchLanguage } from '../../utils/tools.js'
 
@@ -70,6 +72,7 @@ export default {
   setup (props, { emit }) {
     const hover = ref(false)
     const $store = useStore()
+    const $route = useRouter()
     // const locale = computed(() => i18n.global.locale)
     // const hideBoard = ref(true)
     const isHovering = reactive({
@@ -105,6 +108,9 @@ export default {
     // }
     const user = $store.getters.getUser
     // const user = JSON.parse($store.getters.getUser)
+    const goToLogIn = () => {
+      $route.push('/login')
+    }
     return {
       goLogIn,
       onMouseOver,
@@ -112,7 +118,8 @@ export default {
       switchLanguage,
       hover,
       user,
-      isHovering
+      isHovering,
+      goToLogIn
     }
   }
 }
@@ -136,7 +143,10 @@ export default {
     height: 100vh;
     background: rgb(0,0,0,0.4);
     display: none;
-    z-index: 1000;
+    z-index: 110;
+    opacity: 0.8;
+    background-image: url('../../images/haibara/haibara-bg2.jpeg');
+    background-size: 100% 100%;
   }
   .logo {
     padding: 5px 20px;
@@ -192,14 +202,14 @@ export default {
         border-radius: 50%;
         transition: 0.1s linear;
         cursor: pointer;
-        z-index: 1003;
+        z-index: 103;
       }
       .hover-avatar {
         height: 70px;
         width: 70px;
       }
       .board {
-        z-index: 1002;
+        z-index: 102;
         display: none;
         position: absolute;
         height: 199px;
